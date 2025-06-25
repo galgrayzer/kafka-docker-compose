@@ -1,0 +1,24 @@
+image: docker/compose:latest
+
+tasks:
+  - name: Start Kafka Cluster
+    init: |
+      docker-compose -f docker-compose.yaml up -d
+    command: |
+      docker-compose -f docker-compose.yaml logs -f
+  
+  - name: Create Admin User
+    init: |
+      docker-compose -f docker-compose.yaml exec kafka1 bash -c "kafka-configs.sh --bootstrap-server localhost:9094 --alter --add-config 'SCRAM-SHA-256=[iterations=4096,password=admin-secret]' --entity-type users --entity-name admin"
+    command: |
+      echo "Admin user created with SCRAM-SHA-256 authentication."
+
+ports:
+  - port: 9092
+    description: Kafka Broker 1
+
+  - port: 9093
+    description: Kafka Broker 2
+
+  - port: 9094
+    description: Kafka Broker 3
