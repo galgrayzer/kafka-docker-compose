@@ -20,7 +20,7 @@ services:
       - KAFKA_CLUSTER_ID=localcluster
       - BITNAMI_DEBUG=yes
     volumes:
-      - ./kafka_data1:/bitnami/kafka
+      - ./kafka_data:/bitnami/kafka/config
 
   broker2:
     image: bitnami/kafka:latest
@@ -43,7 +43,7 @@ services:
       - KAFKA_CLUSTER_ID=localcluster
       - BITNAMI_DEBUG=yes
     volumes:
-      - ./kafka_data2:/bitnami/kafka
+      - ./kafka_data:/bitnami/kafka/config
 
   broker3:
     image: bitnami/kafka:latest
@@ -66,4 +66,4 @@ services:
       - KAFKA_CLUSTER_ID=localcluster
       - BITNAMI_DEBUG=yes
     volumes:
-      - ./kafka_data3:/bitnami/kafka
+      - ./kafka_data:/bitnami/kafka/config
