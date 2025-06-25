@@ -11,8 +11,9 @@ tasks:
         echo "Waiting for broker1 to be ready..."
         sleep 3
       done
+      docker-compose -f docker-compose.yaml exec broker1 bash -c "kafka-configs.sh --bootstrap-server localhost:9094 --alter --add-config 'SCRAM-SHA-256=[iterations=8192,password=admin-secret]' --entity-type users --entity-name admin"
     command: |
-      echo "Admin user created with SCRAM-SHA-256 authentication."
+      echo "Admin user created with SCRAM-SHA-256 authentication. username: admin, password: admin-secret"
 
 ports:
   - port: 9092
